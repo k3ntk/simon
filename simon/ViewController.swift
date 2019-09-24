@@ -30,15 +30,16 @@ class ViewController: UIViewController {
             let tempRand = Int.random(in: 0...3)
             if tempRand == 0 {
                 redBtn.setImage(brightRed, for: UIControl.State.normal)
+                
             }
             else if tempRand == 1 {
-                greenBtn.setImage
+                greenBtn.setImage(brightGreen, for: UIControl.State.normal)
             }
             else if tempRand == 2 {
-                
+                blueBtn.setImage(brightBlue, for: UIControl.State.normal)
             }
             else if tempRand == 3 {
-                
+                yellowBtn.setImage(brightYellow, for: UIControl.State.normal)
             }
         }
     }
