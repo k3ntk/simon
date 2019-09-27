@@ -31,7 +31,7 @@ class ViewController: UIViewController {
         startBtn.isEnabled = false // disable button on button press
         var rand = 0
         var loop = 0
-        let t = Timer(timeInterval: 1.0, target: self, selector: #selector(changeBtn(loop:rand:btns:)), userInfo: nil, repeats: true) // WTFFFFFFFFF
+        let t = Timer(timeInterval: 1.0, target: self, selector: #selector(changeBtn(sender:)), userInfo: ["loop": loop, "rand": rand], repeats: true) // WTFFFFFFFFF
 //        let t = Timer(timeInterval: 1, repeats: true, block: {_ in // on fire - increment loop, run changeBtn
 //            loop += 1
 //            if loop % 2 == 1 {
@@ -42,9 +42,10 @@ class ViewController: UIViewController {
         t.fire() // dont know how to stop the timer
     }
     
-    @objc func changeBtn(loop: Int, rand: Int, btns: [UIButton]) {
-        if loop % 2 == 1 {
-            btns[rand].setImage(brightBtnPics[rand], for: UIControl.State.normal) // set bright pic
+    @objc func changeBtn(sender: Timer) {
+        let info = sender.userInfo as! [String: Int]
+        if info["loop"]! % 2 == 1 {
+            btns[sender.userInfo?["rand"]].setImage(brightBtnPics[rand], for: UIControl.State.normal) // set bright pic
         }
         else {
             btns[rand].setImage(regBtnPics[rand], for: UIControl.State.normal) // set reg pic
