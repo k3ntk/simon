@@ -45,7 +45,7 @@
                                     <action selector="blueClick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="4wg-cc-XwB"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pze-5R-qQ6">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pze-5R-qQ6" userLabel="start">
                                 <rect key="frame" x="178" y="698" width="58" height="31"/>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -86,6 +86,7 @@
                         <outlet property="blueBtn" destination="RxZ-TV-ouK" id="YU5-NO-2kd"/>
                         <outlet property="greenBtn" destination="dRv-q8-rfy" id="fUA-W8-KaZ"/>
                         <outlet property="redBtn" destination="YIr-OM-x78" id="EtV-Oh-Op9"/>
+                        <outlet property="startBtn" destination="Pze-5R-qQ6" id="n0a-TP-OYq"/>
                         <outlet property="yellowBtn" destination="4BP-iB-GCD" id="LrT-91-ZE7"/>
                     </connections>
                 </viewController>

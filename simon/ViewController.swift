@@ -14,33 +14,40 @@ class ViewController: UIViewController {
     @IBOutlet weak var greenBtn: UIButton!
     @IBOutlet weak var yellowBtn: UIButton!
     @IBOutlet weak var blueBtn: UIButton!
+    @IBOutlet weak var startBtn: UIButton!
     
-    // bright image colors for blinking
-    let brightRed = UIImage(named: "brightRed.png")
-    let brightGreen = UIImage(named: "brightGreen.png")
-    let brightBlue = UIImage(named: "brightBlue.png")
-    let brightYellow = UIImage(named: "brightyellow.png")
+    // bright image colors for blinking -- not sure if works fingers crossed
+    let brightBtnPics: [UIImage] = [UIImage(named: "brightRed")!, UIImage(named: "brightGreen")!, UIImage(named: "brightBlue")!, UIImage(named: "brightYellow")!]
+    let regBtnPics: [UIImage] = [UIImage(named: "red")!, UIImage(named: "green")!, UIImage(named: "blue")!, UIImage(named: "yellow")!]
+    var currColors = 4 // current amount of colors to remember
+    var btns: [UIButton] = [] // future list of btns but cant create here
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.btns = [redBtn, greenBtn, blueBtn, yellowBtn]
     }
 
-    @IBAction func start(_ sender: Any) {
-        for _ in 0...10 {
-            let tempRand = Int.random(in: 0...3)
-            if tempRand == 0 {
-                redBtn.setImage(brightRed, for: UIControl.State.normal)
-                
-            }
-            else if tempRand == 1 {
-                greenBtn.setImage(brightGreen, for: UIControl.State.normal)
-            }
-            else if tempRand == 2 {
-                blueBtn.setImage(brightBlue, for: UIControl.State.normal)
-            }
-            else if tempRand == 3 {
-                yellowBtn.setImage(brightYellow, for: UIControl.State.normal)
-            }
+    @IBAction func start(_ sender: Any) { // maybe put timer as class variable to access in all functions
+        startBtn.isEnabled = false // disable button on button press
+        var rand = 0
+        var loop = 0
+        let t = Timer(timeInterval: 1.0, target: self, selector: #selector(changeBtn(loop:rand:btns:)), userInfo: nil, repeats: true) // WTFFFFFFFFF
+//        let t = Timer(timeInterval: 1, repeats: true, block: {_ in // on fire - increment loop, run changeBtn
+//            loop += 1
+//            if loop % 2 == 1 {
+//                rand = Int.random(in: 0...3)
+//            }
+//            self.changeBtn(loop: loop, rand: rand, btns: self.btns)
+//        })
+        t.fire() // dont know how to stop the timer
+    }
+    
+    @objc func changeBtn(loop: Int, rand: Int, btns: [UIButton]) {
+        if loop % 2 == 1 {
+            btns[rand].setImage(brightBtnPics[rand], for: UIControl.State.normal) // set bright pic
+        }
+        else {
+            btns[rand].setImage(regBtnPics[rand], for: UIControl.State.normal) // set reg pic
         }
     }
     
