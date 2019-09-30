@@ -27,29 +27,28 @@ class ViewController: UIViewController {
         self.btns = [redBtn, greenBtn, blueBtn, yellowBtn]
     }
 
-    @IBAction func start(_ sender: Any) { // maybe put timer as class variable to access in all functions
-        startBtn.isEnabled = false // disable button on button press
-        var rand = 0
-        var loop = 0
-        let t = Timer(timeInterval: 1.0, target: self, selector: #selector(changeBtn(sender:)), userInfo: ["loop": loop, "rand": rand], repeats: true) // WTFFFFFFFFF
-//        let t = Timer(timeInterval: 1, repeats: true, block: {_ in // on fire - increment loop, run changeBtn
-//            loop += 1
-//            if loop % 2 == 1 {
-//                rand = Int.random(in: 0...3)
-//            }
-//            self.changeBtn(loop: loop, rand: rand, btns: self.btns)
-//        })
-        t.fire() // dont know how to stop the timer
+    @IBAction func start(_ sender: Any) {
+        self.startBtn.isEnabled = false // disable button on button press
+        let end = 10
+        let t = Timer(timeInterval: 1, target: self, selector: #selector(changeBtn(sender:)), userInfo: ["loop": 1, "rand": Int.random(in: 1...3), "end": end], repeats: true)
+        t.fire() // sends to changeBtn
     }
     
-    @objc func changeBtn(sender: Timer) {
-        let info = sender.userInfo as! [String: Int]
-        if info["loop"]! % 2 == 1 {
-            btns[sender.userInfo?["rand"]].setImage(brightBtnPics[rand], for: UIControl.State.normal) // set bright pic
+    @objc func changeBtn(sender: Timer) { // looping ends but does not get to invalidate
+        guard var info = sender.userInfo as? [String: Int] else {sender.invalidate(); return}
+        if info["loop"]! % 2 == 1{
+            print("bright")
         }
         else {
-            btns[rand].setImage(regBtnPics[rand], for: UIControl.State.normal) // set reg pic
+            print("regular")
         }
+        if info["loop"]! == info["end"]! {
+            self.startBtn.isEnabled = true
+            sender.invalidate()
+        }
+        info["loop"]! += 1
+        info["rand"]! = Int.random(in: 1...3)
+        print(info["rand"]!)
     }
     
     @IBAction func blueClick(_ sender: Any) {
