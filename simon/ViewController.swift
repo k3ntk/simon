@@ -31,7 +31,6 @@ class ViewController: UIViewController {
         self.startBtn.isEnabled = false // disable button on button press
         let end = 10
         let t = Timer(timeInterval: 1, target: self, selector: #selector(changeBtn(sender:)), userInfo: ["loop": 1, "rand": Int.random(in: 1...3), "end": end], repeats: true)
-        t.fire() // sends to changeBtn
     }
     
     @objc func changeBtn(sender: Timer) { // looping ends but does not get to invalidate
