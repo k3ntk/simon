@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina6_1" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -66,9 +64,22 @@
                                     <action selector="yellowClick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="LwW-6I-aIT"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fXb-UZ-tbb" userLabel="answerLabel">
+                                <rect key="frame" x="157" y="144" width="100" height="40"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="gMn-f0-mBM"/>
+                                    <constraint firstAttribute="width" constant="100" id="laj-pK-Pwk"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="fXb-UZ-tbb" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="100" id="1Ou-Xe-kYO"/>
+                            <constraint firstItem="fXb-UZ-tbb" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="1kv-Tr-HXQ"/>
                             <constraint firstItem="Pze-5R-qQ6" firstAttribute="top" secondItem="4BP-iB-GCD" secondAttribute="bottom" constant="100" id="2im-EH-HAz"/>
                             <constraint firstItem="dRv-q8-rfy" firstAttribute="bottom" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="4BH-1g-t9d"/>
                             <constraint firstItem="4BP-iB-GCD" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="5Ix-Ob-qz0"/>
@@ -83,6 +94,7 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="answerLbl" destination="fXb-UZ-tbb" id="kHz-ay-zXp"/>
                         <outlet property="blueBtn" destination="RxZ-TV-ouK" id="YU5-NO-2kd"/>
                         <outlet property="greenBtn" destination="dRv-q8-rfy" id="fUA-W8-KaZ"/>
                         <outlet property="redBtn" destination="YIr-OM-x78" id="EtV-Oh-Op9"/>

@@ -18,13 +18,14 @@ class CustomTimerInfo { // timer info class
     }
 }
 
-class ViewController: UIViewController {
+class ViewController: UIViewController { // TODO: make difficulty increase with size of order changing
 
     @IBOutlet weak var redBtn: UIButton!
     @IBOutlet weak var greenBtn: UIButton!
     @IBOutlet weak var yellowBtn: UIButton!
     @IBOutlet weak var blueBtn: UIButton!
     @IBOutlet weak var startBtn: UIButton!
+    @IBOutlet weak var answerLbl: UILabel!
     
     let info = CustomTimerInfo()
     
@@ -39,13 +40,13 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.btns = [redBtn, greenBtn, blueBtn, yellowBtn] // red 0, green 1, blue 2, yellow 3
+        for btn in self.btns {
+            btn.isEnabled = false // disable guess btns so no problems
+        }
     }
 
     @IBAction func start(_ sender: Any) {
         self.startBtn.isEnabled = false // disable button on button press
-        for btn in self.btns {
-            btn.isEnabled = false // disable guess btns so no problems
-        }
         let _ = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(changeBtn(_:)), userInfo: self.info, repeats: true)
     }
     
@@ -55,7 +56,7 @@ class ViewController: UIViewController {
             self.btns[info.rand].setImage(self.brightBtnPics[info.rand], for: UIControl.State.normal) // sets bright
         }
         else {
-            self.guesses.append(info.rand) // adds color number to lists
+            self.order.append(info.rand) // adds color number to lists
             self.btns[info.rand].setImage(self.regBtnPics[info.rand], for: UIControl.State.normal) // returns to regular
             info.setRand()
         }
@@ -69,20 +70,43 @@ class ViewController: UIViewController {
         info.loop += 1
     }
     
+    // for each button press append that color code to guess list and check if list full
     @IBAction func redClick(_ sender: Any) {
         self.guesses.append(0)
+        checker()
     }
     
     @IBAction func greenClick(_ sender: Any) {
         self.guesses.append(1)
+        checker()
     }
     
     @IBAction func blueClick(_ sender: Any) {
         self.guesses.append(2)
+        checker()
     }
     
     @IBAction func yellowClick(_ sender: Any) {
         self.guesses.append(3)
+        checker()
+    }
+    
+    func checker(){
+        if self.guesses[self.guesses.count - 1] != self.order[self.guesses.count - 1]{ // if incorrect guess
+            self.answerLbl.backgroundColor = UIColor.red
+            self.answerLbl.text = "incorrect"
+            for btn in self.btns {
+                btn.isEnabled = false // disable guess btns so no problems
+            }
+        }
+        else if self.guesses.count == self.order.count { // if all correct
+            self.answerLbl.backgroundColor = UIColor.green
+            self.answerLbl.text = "correct"
+            for btn in self.btns {
+                btn.isEnabled = false // disable guess btns so no problems
+            }
+            self.startBtn.isEnabled = false
+        }
     }
     
    
