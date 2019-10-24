@@ -27,7 +27,7 @@ class ViewController: UIViewController { // TODO: make difficulty increase with 
     @IBOutlet weak var startBtn: UIButton!
     @IBOutlet weak var answerLbl: UILabel!
     
-    let info = CustomTimerInfo()
+    let timerInfo = CustomTimerInfo()
     
     // bright image colors for blinking -- not sure if works fingers crossed
     let brightBtnPics: [UIImage] = [UIImage(named: "brightRed")!, UIImage(named: "brightGreen")!, UIImage(named: "brightBlue")!, UIImage(named: "brightYellow")!]
@@ -43,25 +43,35 @@ class ViewController: UIViewController { // TODO: make difficulty increase with 
         for btn in self.btns {
             btn.isEnabled = false // disable guess btns so no problems
         }
+        for i in 0...3{
+            self.btns[i].setImage(self.regBtnPics[i], for: UIControl.State.disabled)
+        }
     }
 
     @IBAction func start(_ sender: Any) {
+        self.answerLbl.text = nil // resets text label
+        self.answerLbl.backgroundColor = UIColor.black
+        self.timerInfo.loop = 1 // reset loop
+        self.guesses.removeAll() // resets lists
+        self.order.removeAll()
         self.startBtn.isEnabled = false // disable button on button press
-        let _ = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(changeBtn(_:)), userInfo: self.info, repeats: true)
+        let _ = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(changeBtn(_:)), userInfo: self.timerInfo, repeats: true)
     }
     
-    @objc func changeBtn(_ sender: Timer) { // looping ends but does not get to invalidate
+    @objc func changeBtn(_ sender: Timer) { // timer fire function
         guard let info = sender.userInfo as? CustomTimerInfo else{return}
         if info.loop % 2 == 1{
+            info.setRand() // sets rand
+            self.order.append(info.rand) // appends rand
             self.btns[info.rand].setImage(self.brightBtnPics[info.rand], for: UIControl.State.normal) // sets bright
+            self.btns[info.rand].setImage(self.brightBtnPics[info.rand], for: UIControl.State.disabled)
         }
         else {
-            self.order.append(info.rand) // adds color number to lists
             self.btns[info.rand].setImage(self.regBtnPics[info.rand], for: UIControl.State.normal) // returns to regular
-            info.setRand()
+            self.btns[info.rand].setImage(self.regBtnPics[info.rand], for: UIControl.State.disabled)
+
         }
         if info.loop == info.end { // resets btns and ends timer
-            self.startBtn.isEnabled = true
             for btn in self.btns {
                 btn.isEnabled = true
             }
@@ -98,6 +108,7 @@ class ViewController: UIViewController { // TODO: make difficulty increase with 
             for btn in self.btns {
                 btn.isEnabled = false // disable guess btns so no problems
             }
+            self.startBtn.isEnabled = true
         }
         else if self.guesses.count == self.order.count { // if all correct
             self.answerLbl.backgroundColor = UIColor.green
@@ -105,12 +116,7 @@ class ViewController: UIViewController { // TODO: make difficulty increase with 
             for btn in self.btns {
                 btn.isEnabled = false // disable guess btns so no problems
             }
-            self.startBtn.isEnabled = false
+            self.startBtn.isEnabled = true
         }
     }
-    
-   
-    
-   
 }
-
