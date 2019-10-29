@@ -9,12 +9,16 @@
 import UIKit
 
 class CustomTimerInfo { // timer info class
-    var end = 10
+    var end = 4 // number of cycles * 2
     var loop = 1
     var rand = Int.random(in: 0...3)
     
     func setRand() {
         self.rand = Int.random(in: 0...3)
+    }
+    
+    func lvlUp(){
+        end += 4 // adds 2 to the number of cycles
     }
 }
 
@@ -39,11 +43,13 @@ class ViewController: UIViewController { // TODO: make difficulty increase with 
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.startBtn.layer.cornerRadius = 4
+        self.answerLbl.layer.cornerRadius = 4
         self.btns = [redBtn, greenBtn, blueBtn, yellowBtn] // red 0, green 1, blue 2, yellow 3
         for btn in self.btns {
             btn.isEnabled = false // disable guess btns so no problems
         }
-        for i in 0...3{
+        for i in 0...3{ // sets picture for disabled state
             self.btns[i].setImage(self.regBtnPics[i], for: UIControl.State.disabled)
         }
     }
@@ -113,6 +119,7 @@ class ViewController: UIViewController { // TODO: make difficulty increase with 
         else if self.guesses.count == self.order.count { // if all correct
             self.answerLbl.backgroundColor = UIColor.green
             self.answerLbl.text = "correct"
+            self.timerInfo.lvlUp() // adds 2 to cycle
             for btn in self.btns {
                 btn.isEnabled = false // disable guess btns so no problems
             }

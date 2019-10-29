@@ -75,6 +75,12 @@
                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6dN-FX-wWX">
+                                <rect key="frame" x="186" y="54" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -85,6 +91,8 @@
                             <constraint firstItem="4BP-iB-GCD" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="5Ix-Ob-qz0"/>
                             <constraint firstItem="4BP-iB-GCD" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="5yE-h3-L17"/>
                             <constraint firstItem="YIr-OM-x78" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="8r7-ec-F7S"/>
+                            <constraint firstItem="6dN-FX-wWX" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="B8E-Ki-7Lw"/>
+                            <constraint firstItem="6dN-FX-wWX" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" constant="10" id="C0j-r4-Voo"/>
                             <constraint firstItem="RxZ-TV-ouK" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="D8V-Qe-Ido"/>
                             <constraint firstItem="YIr-OM-x78" firstAttribute="bottom" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="ef2-nl-o74"/>
                             <constraint firstItem="RxZ-TV-ouK" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="gdd-hz-q73"/>
