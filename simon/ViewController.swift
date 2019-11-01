@@ -17,8 +17,12 @@ class CustomTimerInfo { // timer info class
         self.rand = Int.random(in: 0...3)
     }
     
-    func lvlUp(){
-        end += 4 // adds 2 to the number of cycles
+    func reset() {
+        end = 4 // back to 2
+    }
+    
+    func lvlUp() {
+        end += 2 // adds 2 to the number of cycles
     }
 }
 
@@ -40,7 +44,7 @@ class ViewController: UIViewController { // TODO: make difficulty increase with 
     var btns: [UIButton] = [] // future list of btns but cant create here
     var guesses: [Int] = [] // guesses for order
     var order: [Int] = [] // order of colors
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         self.startBtn.layer.cornerRadius = 4
@@ -111,6 +115,7 @@ class ViewController: UIViewController { // TODO: make difficulty increase with 
         if self.guesses[self.guesses.count - 1] != self.order[self.guesses.count - 1]{ // if incorrect guess
             self.answerLbl.backgroundColor = UIColor.red
             self.answerLbl.text = "incorrect"
+            self.timerInfo.reset() // goes back to beginning
             for btn in self.btns {
                 btn.isEnabled = false // disable guess btns so no problems
             }
