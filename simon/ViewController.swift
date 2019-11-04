@@ -9,7 +9,7 @@
 import UIKit
 
 class CustomTimerInfo { // timer info class
-    var end = 4 // number of cycles * 2
+    var end = 2 // number of cycles * 2
     var loop = 1
     var rand = Int.random(in: 0...3)
     
@@ -18,7 +18,7 @@ class CustomTimerInfo { // timer info class
     }
     
     func reset() {
-        end = 4 // back to 2
+        end = 2 // back to 2
     }
     
     func lvlUp() {
@@ -28,12 +28,13 @@ class CustomTimerInfo { // timer info class
 
 class ViewController: UIViewController { // TODO: make difficulty increase with size of order changing
 
+    @IBOutlet var mainView: UIView!
     @IBOutlet weak var redBtn: UIButton!
     @IBOutlet weak var greenBtn: UIButton!
     @IBOutlet weak var yellowBtn: UIButton!
     @IBOutlet weak var blueBtn: UIButton!
     @IBOutlet weak var startBtn: UIButton!
-    @IBOutlet weak var answerLbl: UILabel!
+    @IBOutlet weak var levelLbl: UILabel!
     
     let timerInfo = CustomTimerInfo()
     
@@ -44,11 +45,12 @@ class ViewController: UIViewController { // TODO: make difficulty increase with 
     var btns: [UIButton] = [] // future list of btns but cant create here
     var guesses: [Int] = [] // guesses for order
     var order: [Int] = [] // order of colors
+    var level = 1
         
     override func viewDidLoad() {
         super.viewDidLoad()
         self.startBtn.layer.cornerRadius = 4
-        self.answerLbl.layer.cornerRadius = 4
+        
         self.btns = [redBtn, greenBtn, blueBtn, yellowBtn] // red 0, green 1, blue 2, yellow 3
         for btn in self.btns {
             btn.isEnabled = false // disable guess btns so no problems
@@ -59,8 +61,6 @@ class ViewController: UIViewController { // TODO: make difficulty increase with 
     }
 
     @IBAction func start(_ sender: Any) {
-        self.answerLbl.text = nil // resets text label
-        self.answerLbl.backgroundColor = UIColor.black
         self.timerInfo.loop = 1 // reset loop
         self.guesses.removeAll() // resets lists
         self.order.removeAll()
@@ -113,22 +113,38 @@ class ViewController: UIViewController { // TODO: make difficulty increase with 
     
     func checker(){
         if self.guesses[self.guesses.count - 1] != self.order[self.guesses.count - 1]{ // if incorrect guess
-            self.answerLbl.backgroundColor = UIColor.red
-            self.answerLbl.text = "incorrect"
-            self.timerInfo.reset() // goes back to beginning
+            self.mainView.backgroundColor = UIColor.red
+            self.levelLbl.backgroundColor = UIColor.red
+            self.levelLbl.textColor = UIColor.red
             for btn in self.btns {
                 btn.isEnabled = false // disable guess btns so no problems
             }
-            self.startBtn.isEnabled = true
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                self.mainView.backgroundColor = UIColor.black
+                self.levelLbl.backgroundColor = UIColor.black
+                self.levelLbl.textColor = UIColor.white
+                self.timerInfo.reset() // goes back to beginning
+                self.level = 1
+                self.levelLbl.text = "Level: \(self.level)"
+                self.startBtn.isEnabled = true
+            }
         }
         else if self.guesses.count == self.order.count { // if all correct
-            self.answerLbl.backgroundColor = UIColor.green
-            self.answerLbl.text = "correct"
-            self.timerInfo.lvlUp() // adds 2 to cycle
+            self.mainView.backgroundColor = UIColor.green
+            self.levelLbl.backgroundColor = UIColor.green
+            self.levelLbl.textColor = UIColor.green
             for btn in self.btns {
                 btn.isEnabled = false // disable guess btns so no problems
             }
-            self.startBtn.isEnabled = true
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                self.mainView.backgroundColor = UIColor.black
+                self.levelLbl.backgroundColor = UIColor.black
+                self.levelLbl.textColor = UIColor.white
+                self.timerInfo.lvlUp() // adds 2 to cycle
+                self.level += 1
+                self.levelLbl.text = "Level: \(self.level)"
+                self.startBtn.isEnabled = true
+            }
         }
     }
 }
