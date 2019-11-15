@@ -46,6 +46,10 @@ class ViewController: UIViewController { // TODO: make difficulty increase with 
     var guesses: [Int] = [] // guesses for order
     var order: [Int] = [] // order of colors
     var level = 1
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
         
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,6 +65,7 @@ class ViewController: UIViewController { // TODO: make difficulty increase with 
     }
 
     @IBAction func start(_ sender: Any) {
+        self.startBtn.isHidden = true
         self.timerInfo.loop = 1 // reset loop
         self.guesses.removeAll() // resets lists
         self.order.removeAll()
@@ -125,7 +130,9 @@ class ViewController: UIViewController { // TODO: make difficulty increase with 
                 self.levelLbl.textColor = UIColor.white
                 self.timerInfo.reset() // goes back to beginning
                 self.level = 1
-                self.levelLbl.text = "Level: \(self.level)"
+                self.levelLbl.text = "\(self.level)"
+                self.startBtn.setTitle("Restart", for: UIControl.State.normal)
+                self.startBtn.isHidden = false
                 self.startBtn.isEnabled = true
             }
         }
@@ -142,7 +149,9 @@ class ViewController: UIViewController { // TODO: make difficulty increase with 
                 self.levelLbl.textColor = UIColor.white
                 self.timerInfo.lvlUp() // adds 2 to cycle
                 self.level += 1
-                self.levelLbl.text = "Level: \(self.level)"
+                self.levelLbl.text = "\(self.level)"
+                self.startBtn.setTitle("Continue", for: UIControl.State.normal)
+                self.startBtn.isHidden = false
                 self.startBtn.isEnabled = true
             }
         }
